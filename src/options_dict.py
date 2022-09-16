@@ -1,60 +1,57 @@
-import os
-import sys
-import time
+def mov_linear_frente(msg, instance):
+    msg.linear.x = instance.get_vel_linear()
+    msg.linear.z = 0
 
-#-----------------------------------------
+def mov_linear_tras(msg, instance):
+    msg.linear.x = -instance.get_vel_linear()
+    msg.linear.z = 0
 
-def close():
-    os.system("clear")
-    print("Closing application...")
-    time.sleep(2)
-    os.system("clear")
-    sys.exit(0)
+def mov_angular_anti(msg, instance):
+    msg.linear.x = 0
+    msg.angular.z = instance.get_vel_angular()
 
-#-----------------------------------------
+def mov_angular_hor(msg, instance):
+    msg.linear.x = 0
+    msg.angular.z = -instance.get_vel_angular()
 
-def mov_linear_frente():
-    print("mov_linear_frente")
+def mov_linear_frente_giro_anti(msg, instance):
+    msg.linear.x = instance.get_vel_linear()
+    msg.angular.z = instance.get_vel_angular()
 
-def mov_linear_tras():
-    print("mov_linear_tras")
+def mov_linear_tras_giro_anti(msg, instance):
+    msg.linear.x = -instance.get_vel_linear()
+    msg.angular.z = -instance.get_vel_angular()
 
-def mov_angular_anti():
-    print("mov_angular_anti")
+def mov_linear_frente_giro_hor(msg, instance):
+    msg.linear.x = instance.get_vel_linear()
+    msg.angular.z = -instance.get_vel_angular()
 
-def mov_angular_hor():
-    print("mov_angular_hor")
+def mov_linear_tras_giro_hor(msg, instance):
+    msg.linear.x = -instance.get_vel_linear()
+    msg.angular.z = instance.get_vel_angular()
 
-def mov_linear_frente_giro_anti():
-    print("mov_linear_frente_giro_anti")
+def parado(msg, instance):
+    msg.linear.x = 0
+    msg.angular.z = 0
 
-def mov_linear_tras_giro_anti():
-    print("mov_linear_tras_giro_anti")
+def inc_vel_linear(msg, instance):
+    instance.set_vel_linear(instance.get_vel_linear() + instance.get_vel_linear()/100*20)
+    print(f"Linear Velocity: {instance.get_vel_linear()}")
 
-def mov_linear_frente_giro_hor():
-    print("mov_linear_frente_giro_hor")
+def dec_vel_linear(msg, instance):
+    instance.set_vel_linear(instance.get_vel_linear() - instance.get_vel_linear()/100*20)
+    print(f"Linear Velocity: {instance.get_vel_linear()}")
 
-def mov_linear_tras_giro_hor():
-    print("mov_linear_tras_giro_hor")
+def inc_vel_angular(msg, instance):
+    instance.set_vel_angular(instance.get_vel_angular() + instance.get_vel_angular()/100*20)
+    print(f"Angular Velocity: {instance.get_vel_angular()}")
 
-def parado():
-    print("parado")
+def dec_vel_angular(msg, instance):
+    instance.set_vel_angular(instance.get_vel_angular() - instance.get_vel_angular()/100*20)
+    print(f"Angular Velocity: {instance.get_vel_angular()}")
 
-def inc_vel_linear():
-    print("inc_vel_linear")
-
-def dec_vel_linear():
-    print("dec_vel_linear")
-
-def inc_vel_angular():
-    print("inc_vel_angular")
-
-def dec_vel_angular():
-    print("dec_vel_angular")
-
-def fecha_no():
-    print("fecha_no")
-    close()
+def fecha_no(msg, instance):
+    instance.close_app()
 
 option_dict = {
     "w": ["Movimento linear para frente", mov_linear_frente],
